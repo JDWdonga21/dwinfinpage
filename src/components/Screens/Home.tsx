@@ -46,44 +46,44 @@ const DATA = [
   },
 ];
 
-const DATA1 = [
-  {
-    id: '1',
-    title: 'First Item',
-    doneVideos: 10,
-    totalVideos: 40,
-  },
-  {
-    id: '2',
-    title: 'Second Item',
-    doneVideos: 10,
-    totalVideos: 40,
-  },
-  {
-    id: '3',
-    title: 'Third Item',
-    doneVideos: 10,
-    totalVideos: 40,
-  },
-  {
-    id: '4',
-    title: '4 th Item',
-    doneVideos: 10,
-    totalVideos: 40,
-  },
-  {
-    id: '5',
-    title: '5 th Item',
-    doneVideos: 10,
-    totalVideos: 40,
-  },
-  {
-    id: '6',
-    title: '6 th Item',
-    doneVideos: 10,
-    totalVideos: 40,
-  },
-];
+// const DATA1 = [
+//   {
+//     id: '1',
+//     title: 'First Item',
+//     doneVideos: 10,
+//     totalVideos: 40,
+//   },
+//   {
+//     id: '2',
+//     title: 'Second Item',
+//     doneVideos: 10,
+//     totalVideos: 40,
+//   },
+//   {
+//     id: '3',
+//     title: 'Third Item',
+//     doneVideos: 10,
+//     totalVideos: 40,
+//   },
+//   {
+//     id: '4',
+//     title: '4 th Item',
+//     doneVideos: 10,
+//     totalVideos: 40,
+//   },
+//   {
+//     id: '5',
+//     title: '5 th Item',
+//     doneVideos: 10,
+//     totalVideos: 40,
+//   },
+//   {
+//     id: '6',
+//     title: '6 th Item',
+//     doneVideos: 10,
+//     totalVideos: 40,
+//   },
+// ];
 
 const Item = ({ title } : any) => (
   <View style={styles.item}>
@@ -92,6 +92,7 @@ const Item = ({ title } : any) => (
 );
 //-------------//
 const renderItem2 = ({item} : any) => {
+  const myId = item?.id;
   const categoryTitle = item?.title;
   const doneVideos = item.doneVideos;
   const totalVideos = item.totalVideos;
@@ -108,7 +109,7 @@ const renderItem2 = ({item} : any) => {
         }}        
       >
         <Text style={{fontWeight: 'bold', color: '#2323dd'}}>
-          {categoryTitle}
+          {myId} : {categoryTitle}
         </Text>
       </TouchableOpacity>
       <View style={{marginTop: 10}}>
@@ -146,13 +147,13 @@ class Home extends React.PureComponent<Props, State> {
           //preset: Preset.SLIDE
           DataList : [
             {
-              id: '1',
+              id: '0',
               title: 'First Item',
               doneVideos: 10,
               totalVideos: 40,
             },
             {
-              id: '2',
+              id: '1',
               title: 'Second Item',
               doneVideos: 10,
               totalVideos: 40,
