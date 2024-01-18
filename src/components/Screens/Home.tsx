@@ -150,13 +150,13 @@ class Home extends React.PureComponent<Props, State> {
               id: '0',
               title: 'First Item',
               doneVideos: 10,
-              totalVideos: 40,
+              totalVideos: 20,
             },
             {
               id: '1',
               title: 'Second Item',
               doneVideos: 10,
-              totalVideos: 40,
+              totalVideos: 30,
             },
           ]
         };
@@ -177,8 +177,9 @@ class Home extends React.PureComponent<Props, State> {
       this.isLoading = true;
       console.log("늘어나라 얍!")
       const idxs = this.state.DataList.length.toString();
+      const doneVideo = this.state.DataList.length
       this.setState({
-        DataList : [...this.state.DataList, {id: idxs, title: idxs + ' th Item', doneVideos: 10, totalVideos: 40,}]
+        DataList : [...this.state.DataList, {id: idxs, title: idxs + ' th Item', doneVideos: doneVideo, totalVideos: 100,}]
       })
       this.isLoading = false
     }
