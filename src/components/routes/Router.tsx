@@ -2,8 +2,9 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import Home from "../Screens/Home";
-import Loading from "../Screens/Loading";
+import Home from "../Screens/MainScreens/Home";
+import Loading from "../Screens/MainScreens/Loading";
+import InfinScroll from "../Screens/InfiniteScroll/InfiniteScroll";
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +21,9 @@ class Router extends React.PureComponent<Props, State> {
                 >
                     <Stack.Screen name="Loading" component={Loading}/>
                     <Stack.Screen name="Home" component={Home} />
+
+                    <Stack.Screen name="InfinScroll" component={InfinScroll} />
+
                 </Stack.Navigator>
             </NavigationContainer>
         )
