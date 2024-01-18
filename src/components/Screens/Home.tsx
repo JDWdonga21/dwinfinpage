@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, SafeAreaView, FlatList, StatusBar } from 'react-native';
+import React, { Component, useRef } from 'react';
+import { Text, View, StyleSheet, TouchableOpacity, SafeAreaView, FlatList, StatusBar, Button } from 'react-native';
 import * as Progress from 'react-native-progress';
 
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -44,35 +44,23 @@ const DATA = [
     id: '58694a0f-3da1-471f-bd96-145571e29d72',
     title: 'Third Item',
   },
-  {
-    id: '4',
-    title: '4 th Item',
-  },
-  {
-    id: '5',
-    title: '5 th Item',
-  },
-  {
-    id: '6',
-    title: '6 th Item',
-  },
 ];
 
 const DATA1 = [
   {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    id: '1',
     title: 'First Item',
     doneVideos: 10,
     totalVideos: 40,
   },
   {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+    id: '2',
     title: 'Second Item',
     doneVideos: 10,
     totalVideos: 40,
   },
   {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    id: '3',
     title: 'Third Item',
     doneVideos: 10,
     totalVideos: 40,
@@ -111,7 +99,7 @@ const renderItem2 = ({item} : any) => {
   console.log(rate);
 
   return (
-    <View style={styles.item}>
+    <View style={styles.item2}>
       <TouchableOpacity
         style={{}}
         activeOpacity={0.5}
@@ -135,16 +123,41 @@ const renderItem2 = ({item} : any) => {
   );
 };
 //-------------//
+// const page = useRef(0);
+// const isLoading = useRef<boolean>(false);
 
 interface Props {}
-interface State {}
+type Data = {
+  id: string,
+  title: string,
+  doneVideos: number,
+  totalVideos: number,
+}
+interface State {
+  DataList : Data[]
+}
 
 class Home extends React.PureComponent<Props, State> {
     //pagerRef = React.createRef();
+    isLoading = false as boolean
     constructor(Props: any) {
         super(Props);
         this.state = {
           //preset: Preset.SLIDE
+          DataList : [
+            {
+              id: '1',
+              title: 'First Item',
+              doneVideos: 10,
+              totalVideos: 40,
+            },
+            {
+              id: '2',
+              title: 'Second Item',
+              doneVideos: 10,
+              totalVideos: 40,
+            },
+          ]
         };
     }
 
@@ -157,20 +170,45 @@ class Home extends React.PureComponent<Props, State> {
   renderItem1 = ({ item }:any) => (
     <Item title={item.title} />
   );
+  //------//
+  onEndReached = () => {
+    if (100 >= this.state.DataList.length && this.isLoading === false){
+      this.isLoading = true;
+      console.log("늘어나라 얍!")
+      const idxs = this.state.DataList.length.toString();
+      this.setState({
+        DataList : [...this.state.DataList, {id: idxs, title: idxs + ' th Item', doneVideos: 10, totalVideos: 40,}]
+      })
+      this.isLoading = false
+    }
+  }
+  //---------//
   render() {
     const { preset } : any = this.state;
     return (
       <SafeAreaView style={styles.container}>
-        <FlatList
-          data={DATA}
-          renderItem={this.renderItem1}
-          keyExtractor={item => item.id}
-        />
-        <FlatList
-          data={DATA1}
-          renderItem={renderItem2}
-          keyExtractor={item => item.id}
-        />
+        <View style={{flex: 3}}>
+          <View style={{flex: 1}}>
+            <FlatList
+              data={DATA}
+              renderItem={this.renderItem1}
+              keyExtractor={item => item.id}
+            />
+          </View>
+          <View style={{flex: 3}}>
+            <FlatList
+              data={this.state.DataList}
+              renderItem={renderItem2}
+              keyExtractor={item => item.id}
+              onEndReached={this.onEndReached}
+              onEndReachedThreshold={0.6}
+            />
+          </View>          
+        </View>
+        <View style={{flex: 1}}>
+          <Text> 여유공간 </Text>
+          <Button title='늘어나라' onPress={this.onEndReached}></Button>
+        </View> 
       </SafeAreaView>
     );
   }
@@ -184,6 +222,12 @@ const styles = StyleSheet.create({
   },
   item: {
     backgroundColor: '#f9c2ff',
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+  },
+  item2: {
+    backgroundColor: '#00f9f9',
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
