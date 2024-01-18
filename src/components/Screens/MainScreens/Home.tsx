@@ -104,9 +104,11 @@ class Home extends React.PureComponent<Props, State> {
             />
           </View>     
         </View>
-        <View style={{flex: 1}}>
+        <View style={{flex: 2}}>
           <Text> 여유공간 </Text>
-          <Button title='무한 스크롤' onPress={this.goToInfiniteScroll}></Button>
+          <View style={{marginHorizontal: 30}}>
+            <Button title='무한 스크롤' onPress={this.goToInfiniteScroll}></Button>
+          </View>          
         </View> 
       </SafeAreaView>
     );
